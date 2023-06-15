@@ -1,5 +1,7 @@
 package com.sparta.blog.controller;
 
+import com.sparta.blog.Entity.Post;
+import com.sparta.blog.dto.PostDetailDto;
 import com.sparta.blog.dto.PostRequestDto;
 import com.sparta.blog.dto.PostResponseDto;
 import com.sparta.blog.service.PostService;
@@ -19,20 +21,24 @@ public class PostController {
     public PostResponseDto createBlog(@RequestBody PostRequestDto requestDto) {
         return postService.createBlog(requestDto);
     }
-
+    @GetMapping("/blog/detail/{id}")
+    public PostDetailDto detailInquiry(@PathVariable Long id){
+        return postService.detailInquiry(id);
+    }
     @GetMapping("/blog")
 //    @ResponseBody
-    public List<PostResponseDto> getBlog() {
+    public List<PostDetailDto> getBlog() {
         return postService.getPost();
     }
 
     @PutMapping("/blog/{id}")
-    public Long updateBlog(@PathVariable Long id, @RequestBody PostRequestDto requestDto) {
-        return postService.updatePost(id,requestDto);
+    public PostRequestDto updateBlog(@PathVariable Long id, @RequestBody PostRequestDto requestDto
+            , @RequestParam String password) {
+        return postService.updatePost(id,requestDto,password);
     }
 
     @DeleteMapping("/blog/{id}")
-    public Long deletePost(@PathVariable Long id) {
-        return postService.deletePost(id);
+    public String deletePost(@PathVariable Long id, @RequestParam String password) {
+        return postService.deletePost(id,password);
     }
 }

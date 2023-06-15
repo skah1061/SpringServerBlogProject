@@ -11,8 +11,10 @@ public class PostResponseDto {
     String title;   //제목
     String writerName;//작성자명
     String contents;//작성내용
-    LocalDateTime writeDate;//작성 날짜
+    private LocalDateTime createAt;
+    private LocalDateTime modifiedAt;
     String password;//비밀번호
+
 
     public PostResponseDto(Post post) {
         this.id = post.getId();
@@ -20,6 +22,8 @@ public class PostResponseDto {
         this.writerName = post.getWriterName();
         this.contents = post.getContents();
         this.password = post.getPassword();
+        this.createAt = post.getCreateAt();
+        this.modifiedAt = post.getModifiedAt();
         //시간추가
     }
 }

@@ -4,8 +4,8 @@ import lombok.Getter;
 
 @Getter
 public class PostRequestDto {
-    String title;
-    String contents;
-    String writerName;
-    String password;
+    String title;   //제목
+    String contents;    //내용
+    String writerName;  //작성자명
+    String password;    //비밀번호
 }

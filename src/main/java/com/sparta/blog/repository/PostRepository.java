@@ -11,6 +11,6 @@ import java.util.List;
 @Repository
 public interface PostRepository  extends JpaRepository<Post, Long> {
 //        List<Post> findAllByOrderBywriteDateDesc();
-        List<Post> findAll();
+        List<Post> findAllByOrderByCreateAtDesc();
 }
 
