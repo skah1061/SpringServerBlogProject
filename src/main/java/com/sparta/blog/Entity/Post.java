@@ -26,4 +26,15 @@ public class Post {
         this.contents = requestDto.getContents();
         this.password = requestDto.getPassword();
     }
+
+    public void update(PostRequestDto requestDto, String password) {
+        if(requestDto.getPassword().equals(this.password)) {
+            this.title = requestDto.getTitle();
+            this.writerName = requestDto.getWriterName();
+            this.contents = requestDto.getContents();
+        }
+        else{
+            throw new IllegalArgumentException("해당 번호가 맞지 않습니다.");
+        }
+    }
 }
