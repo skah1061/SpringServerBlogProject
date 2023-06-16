@@ -15,13 +15,13 @@
 <img src="https://github.com/skah1061/SpringServerBlogProject/assets/81159848/00a11db2-771a-4e99-9def-56f1a1c031f9">
 
 <h3>#게시글 수정 PUT요청</h3>
-<h5>Params를 이용해 password키 값으로 맞은 암호를 입력해야 수정</h5>
-<img src="https://github.com/skah1061/SpringServerBlogProject/assets/81159848/36b51ff2-c1a2-4286-aef8-3a5891c887f5">
+<h5>Params를 이용해 데이터객체를 받아오고 body로 맞는 암호를 입력해야 수정</h5>
+<img src="https://github.com/skah1061/SpringServerBlogProject/assets/81159848/543220db-38b6-48fc-a7dc-30380a56afb8">
 
 <h3>#게시글 삭제 DELETE요청</h3>
-<h5>Params를 이용해 password키 값으로 맞은 암호를 입력해야 삭제</h5>
+<h5>body를 이용해 맞는 암호를 입력해야 삭제</h5>
 <h5>암호가 맞다면 삭제하고 삭제완료 반환</h5>
 <h5>암호가 아니라면 삭제하지않고 암호가 틀립니다. 반환</h5>
-<img src="https://github.com/skah1061/SpringServerBlogProject/assets/81159848/1adc61bf-ece3-46c4-8742-51d21195e747">
+<img src="https://github.com/skah1061/SpringServerBlogProject/assets/81159848/2677b01e-367e-496a-bad0-7c2ec734f869">
 
 #############
