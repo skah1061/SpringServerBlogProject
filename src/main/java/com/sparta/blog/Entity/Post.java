@@ -1,5 +1,6 @@
 package com.sparta.blog.Entity;
 
+import com.sparta.blog.dto.PostDetailDto;
 import com.sparta.blog.dto.PostRequestDto;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -32,14 +33,9 @@ public class Post extends Timestamped{
         this.password = requestDto.getPassword();
     }
 
-    public void update(PostRequestDto requestDto) {
-        if(requestDto.getPassword().equals(this.password)) {
-            this.title = requestDto.getTitle();
-            this.writerName = requestDto.getWriterName();
-            this.contents = requestDto.getContents();
-        }
-        else{
-            throw new IllegalArgumentException("해당 번호가 맞지 않습니다.");
-        }
+    public void update(PostDetailDto detailDto) {
+            this.title = detailDto.getTitle();
+            this.writerName = detailDto.getWriterName();
+            this.contents = detailDto.getContents();
     }
 }

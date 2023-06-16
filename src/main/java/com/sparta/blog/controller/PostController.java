@@ -8,6 +8,7 @@ import com.sparta.blog.service.PostService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
@@ -23,7 +24,7 @@ public class PostController {
     }
     @GetMapping("/blog/detail/{id}")
     public PostDetailDto detailInquiry(@PathVariable Long id){
-        return postService.detailInquiry(id);
+        return postService.detailPost(id);
     }
     @GetMapping("/blog")
 //    @ResponseBody
@@ -32,13 +33,13 @@ public class PostController {
     }
 
     @PutMapping("/blog/{id}")
-    public PostRequestDto updateBlog(@PathVariable Long id, @RequestBody PostRequestDto requestDto
-            , @RequestParam String password) {
-        return postService.updatePost(id,requestDto,password);
+    public PostDetailDto updateBlog(@PathVariable Long id, PostDetailDto postDetailDto
+            , @RequestBody Map<String,String> password) {
+        return postService.updatePost(id,postDetailDto,password.get("password"));
     }
 
     @DeleteMapping("/blog/{id}")
-    public String deletePost(@PathVariable Long id, @RequestParam String password) {
-        return postService.deletePost(id,password);
+    public String deletePost(@PathVariable Long id, @RequestBody Map<String,String> password) {
+        return postService.deletePost(id,password.get("password"));//수정
     }
 }

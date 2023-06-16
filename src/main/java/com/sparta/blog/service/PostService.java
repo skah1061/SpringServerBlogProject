@@ -37,13 +37,13 @@ public class PostService {
         return postRepository.findAllByOrderByCreateAtDesc().stream().map(PostDetailDto::new).toList();
     }
     @Transactional
-    public PostRequestDto updatePost(Long id, PostRequestDto requestDto, String password){
+    public PostDetailDto updatePost(Long id, PostDetailDto detailDto, String password){
 
         Post post = findPost(id);
         if(password.equals(post.getPassword())) {
-            post.update(requestDto);
+            post.update(detailDto);
 
-            return requestDto;
+            return detailDto;
         }
         else{
             throw new IllegalArgumentException("암호가 틀립니다.");
@@ -60,7 +60,7 @@ public class PostService {
             return "암호가 틀렸습니다.";
         }
     }
-    public PostDetailDto detailInquiry(Long id) {
+    public PostDetailDto detailPost(Long id) {
         Post post = findPost(id);
         PostDetailDto postDetailDto = new PostDetailDto(post);
         return postDetailDto;
