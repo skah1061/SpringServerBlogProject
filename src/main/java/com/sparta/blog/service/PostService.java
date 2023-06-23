@@ -4,6 +4,7 @@ import com.sparta.blog.Entity.Post;
 import com.sparta.blog.dto.PostDetailDto;
 import com.sparta.blog.dto.PostRequestDto;
 import com.sparta.blog.dto.PostResponseDto;
+import com.sparta.blog.dto.UserRequestDto;
 import com.sparta.blog.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

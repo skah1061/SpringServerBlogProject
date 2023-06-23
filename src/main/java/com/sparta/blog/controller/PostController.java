@@ -1,9 +1,9 @@
 package com.sparta.blog.controller;
 
-import com.sparta.blog.Entity.Post;
 import com.sparta.blog.dto.PostDetailDto;
 import com.sparta.blog.dto.PostRequestDto;
 import com.sparta.blog.dto.PostResponseDto;
+import com.sparta.blog.dto.UserRequestDto;
 import com.sparta.blog.service.PostService;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,6 +40,7 @@ public class PostController {
 
     @DeleteMapping("/blog/{id}")
     public String deletePost(@PathVariable Long id, @RequestBody Map<String,String> password) {
-        return postService.deletePost(id,password.get("password"));//수정
+        return postService.deletePost(id,password.get("password"));
     }
+
 }

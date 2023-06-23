@@ -7,7 +7,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Transactional
 @Repository
 public interface PostRepository  extends JpaRepository<Post, Long> {
 //        List<Post> findAllByOrderBywriteDateDesc();
