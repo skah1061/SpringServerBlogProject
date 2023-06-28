@@ -1,9 +1,14 @@
 # SpringServerBlogProject
 스프링 서버 공부용 블로그 프로젝트 제작 깃 입니다.
 
+<h2>ERD</h2>
+<img src="https://github.com/skah1061/SpringServerBlogProject/assets/81159848/aaaf2618-a4ed-4d5e-9e20-1859d41e4956">
 <h2>usecase</h2>
 
 <img src ="https://github.com/skah1061/SpringServerBlogProject/assets/81159848/184368a1-93c8-4d03-8af4-b23e57309d50">
+
+<h3>API명세</h3>
+[https://docs.google.com/spreadsheets/d/1cE1zbtSOKVx5E4zYig8rTs3YSXXGU288LMeJ0ms31Uc/edit?usp=sharing](https://www.notion.so/acce043ca1ed44148fc863c0cdbd9f8e?v=fafa508ff33146e6a8d798573d1260fe&pvs=4)
 
 <h3>#전체 조회 GET요청</h3>
 <img src="https://github.com/skah1061/SpringServerBlogProject/assets/81159848/4201038b-59b5-4de5-9d2e-10defbedbad1">
