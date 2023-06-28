@@ -14,7 +14,6 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Post extends Timestamped{
     @Id
-
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;    //id
     @Column(name="title")
@@ -23,17 +22,20 @@ public class Post extends Timestamped{
     String writerName;//작성자명
     @Column(name ="contents",nullable = false, length = 500)
     String contents;//작성내용
-    @Column(name="password",nullable = false)
+    @Column(name="password",nullable = true)
     String password;//비밀번호
+    @Column(name="user_id",nullable = false)
+    long user_id;
 //    @ManyToOne
 //    @JoinColumn(name = "user_id", nullable = false)
 //    User user;
 
-    public Post(PostRequestDto requestDto) {
+    public Post(PostRequestDto requestDto, String username , long user_id) {
         this.title = requestDto.getTitle();
-        this.writerName = requestDto.getWriterName();
         this.contents = requestDto.getContents();
-        this.password = requestDto.getPassword();
+        this.writerName = username;
+        this.password  = "1";
+        this.user_id = user_id;
     }
 
     public void update(PostDetailDto detailDto) {

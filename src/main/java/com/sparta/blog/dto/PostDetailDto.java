@@ -17,6 +17,7 @@ public class PostDetailDto {
     public PostDetailDto(){
 
     }
+    
     public PostDetailDto(Post post){
         this.title = post.getTitle();
         this.contents = post.getContents();

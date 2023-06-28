@@ -21,7 +21,7 @@ public class PostResponseDto {
         this.title = post.getTitle();
         this.writerName = post.getWriterName();
         this.contents = post.getContents();
-        this.password = post.getPassword();
+//        this.password = post.getPassword();
         this.createAt = post.getCreateAt();
         this.modifiedAt = post.getModifiedAt();
         //시간추가

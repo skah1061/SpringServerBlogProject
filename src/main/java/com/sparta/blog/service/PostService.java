@@ -4,33 +4,47 @@ import com.sparta.blog.Entity.Post;
 import com.sparta.blog.dto.PostDetailDto;
 import com.sparta.blog.dto.PostRequestDto;
 import com.sparta.blog.dto.PostResponseDto;
-import com.sparta.blog.dto.UserRequestDto;
+import com.sparta.blog.jwt.JwtUtil;
 import com.sparta.blog.repository.PostRepository;
+import com.sparta.blog.security.UserDetailsImpl;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
 @Service
 public class PostService {
     private final PostRepository postRepository;
+    private final JwtUtil jwtUtil;
     @Autowired
-    public PostService(PostRepository postRepository){
+    public PostService(PostRepository postRepository, JwtUtil jwtUtil){
         this.postRepository = postRepository;
+        this.jwtUtil = jwtUtil;
     }
-    public PostResponseDto createBlog(PostRequestDto requestDto) {
+    public PostResponseDto createBlog(HttpServletRequest req, PostRequestDto requestDto, UserDetailsImpl userDetails) {
+        String token = jwtUtil.getTokenFromRequest(req);
 
+        if(StringUtils.hasText(token)) {
+            token = jwtUtil.substringToken(token);
+            if (jwtUtil.validateToken(token)) {
+                Post post = new Post(requestDto, userDetails.getUsername(), userDetails.getUser().getId());
+
+                //id체크
+                Post savePost = postRepository.save(post);
+
+                //Entity를 ResponseDto로
+                PostResponseDto postResponseDto = new PostResponseDto(post);
+
+                return postResponseDto;
+            }
+        }
         //엔티티로 변환해주는 단계
-        Post post = new Post(requestDto);
-
-        //id체크
-        Post savePost = postRepository.save(post);
-
-        //Entity를 ResponseDto로
-        PostResponseDto postResponseDto = new PostResponseDto(post);
-
-       return postResponseDto;
+        return null;
     }
 
     public List<PostDetailDto> getPost() {
@@ -38,27 +52,39 @@ public class PostService {
         return postRepository.findAllByOrderByCreateAtDesc().stream().map(PostDetailDto::new).toList();
     }
     @Transactional
-    public PostDetailDto updatePost(Long id, PostDetailDto detailDto, String password){
+    public PostDetailDto updatePost(HttpServletRequest req, Long id, PostDetailDto detailDto, UserDetailsImpl userDetails){
+        String username = userDetails.getUsername();
 
         Post post = findPost(id);
-        if(password.equals(post.getPassword())) {
-            post.update(detailDto);
+        if(isToken(req)) {
+            if (post.getWriterName().equals(username)) {
+                detailDto.setWriterName(username);
+                post.update(detailDto);
 
-            return detailDto;
+                return detailDto;
+            } else {
+                throw new IllegalArgumentException("수정할 권한이 없습니다.");
+            }
         }
         else{
-            throw new IllegalArgumentException("암호가 틀립니다.");
+            throw new IllegalArgumentException("Token Error");
         }
     }
-    public String deletePost(Long id,String password){
+    public String deletePost(HttpServletRequest req,Long id,UserDetailsImpl userDetails){
 
         Post post = findPost(id);
-        if(password.equals(post.getPassword())) {
-            postRepository.delete(post);
-            return "삭제완료";
+        if(isToken(req)){
+            if(post.getWriterName().equals(userDetails.getUsername())) {
+                postRepository.delete(post);
+
+                return "삭제완료";
+            }
+            else {
+                throw new IllegalArgumentException("해당 권한이 없습니다.");
+            }
         }
         else{
-            return "암호가 틀렸습니다.";
+            throw new IllegalArgumentException("Token Error");
         }
     }
     public PostDetailDto detailPost(Long id) {
@@ -73,6 +99,16 @@ public class PostService {
         );
         return post;
     }
+    private boolean isToken(HttpServletRequest req){
+        String token = jwtUtil.getTokenFromRequest(req);
+        if(StringUtils.hasText(token)){
+            token =jwtUtil.substringToken(token);
+            if(jwtUtil.validateToken(token)){
+                return true;
+            }
 
+        }
+        return false;
+    }
 
 }

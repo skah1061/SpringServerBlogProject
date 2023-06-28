@@ -4,7 +4,11 @@ import com.sparta.blog.dto.PostDetailDto;
 import com.sparta.blog.dto.PostRequestDto;
 import com.sparta.blog.dto.PostResponseDto;
 import com.sparta.blog.dto.UserRequestDto;
+import com.sparta.blog.jwt.JwtUtil;
+import com.sparta.blog.security.UserDetailsImpl;
 import com.sparta.blog.service.PostService;
+import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,8 +23,8 @@ public class PostController {
     }
 
     @PostMapping("/blog")
-    public PostResponseDto createBlog(@RequestBody PostRequestDto requestDto) {
-        return postService.createBlog(requestDto);
+    public PostResponseDto createBlog(HttpServletRequest httpServletRequest, @RequestBody PostRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        return postService.createBlog(httpServletRequest,requestDto, userDetails);
     }
     @GetMapping("/blog/detail/{id}")
     public PostDetailDto detailInquiry(@PathVariable Long id){
@@ -33,14 +37,13 @@ public class PostController {
     }
 
     @PutMapping("/blog/{id}")
-    public PostDetailDto updateBlog(@PathVariable Long id, PostDetailDto postDetailDto
-            , @RequestBody Map<String,String> password) {
-        return postService.updatePost(id,postDetailDto,password.get("password"));
+    public PostDetailDto updateBlog(HttpServletRequest req,@PathVariable Long id,@RequestBody PostDetailDto postDetailDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        return postService.updatePost(req,id,postDetailDto, userDetails);
     }
 
     @DeleteMapping("/blog/{id}")
-    public String deletePost(@PathVariable Long id, @RequestBody Map<String,String> password) {
-        return postService.deletePost(id,password.get("password"));
+    public String deletePost(HttpServletRequest req,@PathVariable Long id, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        return postService.deletePost(req,id,userDetails);
     }
 
 }
