@@ -5,7 +5,7 @@
 <img src="https://github.com/skah1061/SpringServerBlogProject/assets/81159848/aaaf2618-a4ed-4d5e-9e20-1859d41e4956">
 <h2>usecase</h2>
 
-<img src ="https://github.com/skah1061/SpringServerBlogProject/assets/81159848/184368a1-93c8-4d03-8af4-b23e57309d50">
+<img src="https://github.com/skah1061/SpringServerBlogProject/assets/81159848/73dc7ab3-065f-40bd-bd5f-11bf99afe788">
 
 <h3>API명세</h3>
 [https://docs.google.com/spreadsheets/d/1cE1zbtSOKVx5E4zYig8rTs3YSXXGU288LMeJ0ms31Uc/edit?usp=sharing](https://www.notion.so/acce043ca1ed44148fc863c0cdbd9f8e?v=fafa508ff33146e6a8d798573d1260fe&pvs=4)
